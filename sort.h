@@ -1,6 +1,12 @@
 #ifndef SORT_H_INCLUDED
 #define SORT_H_INCLUDED
 template<typename T>
+/**
+@входные параметры обьект типа table<T> по ссылке
+@сортировка простыми включениями по небыванию количества отрицательных элементов в столбце матрицы
+@на выход const char*(кол ошибки) и NULL если все нормально
+
+*/
 const char *sort(table<T> &buff){
     const char *out(NULL);
     if(buff.empty())out="Empty table";
