@@ -47,43 +47,14 @@ const char* table<T>::get(int i,int j,T &_data){
     }
     return str;
 }
-/*template<typename V>
-const char* sort(table<V> &buff){
-    const char *out(NULL);
-    if(buff.empty())out="Empty table";
-    else{
-        V buff_value;
-        V *key=new V[buff.col];
-        for(size_t i=0;i<buff.col;i++)key[i]=0;
-        for(size_t i=0;i<buff.row;i++){
-            for(size_t ii=0;ii<buff.col;ii++){
-                if(buff.body[i][ii]<0)key[ii]++;
-            }
-        }
-        size_t buff_idx(0);
-        V *tmp_col = new V[buff.col];
-        for(size_t i=0;i<buff.col-1;i++){
-            buff_idx=i;
-            buff_value=key[i];
-            for(size_t idx=0;idx<buff.row;idx++)tmp_col[idx]=buff.body[idx][i];
-            for(size_t ii=i+1;ii<buff.col;ii++){
-                if(key[ii]<key[buff_idx]){
-                    buff_idx=ii;
-                }
-            }
-            buff_value=key[i];
-            for(size_t idx=0;idx<buff.row;idx++)tmp_col[idx]=buff.body[idx][i];
-            key[i]=key[buff_idx];
-            for(size_t idx=0;idx<buff.row;idx++)buff.body[idx][i]=buff.body[idx][buff_idx];
-            key[buff_idx]=buff_value;
-            for(size_t idx=0;idx<buff.row;idx++)buff.body[idx][buff_idx]=tmp_col[idx];
-           // std::cout<<key[i]<<" ";
-        }
-        //std::cout<<std::endl;
-        //for(size_t i=0;i<buff.col;i++)std::cout<<key[i]<<" ";
+template<typename T>
+const T* table<T>::operator[](size_t idx){
+    T *tmp=new T[col];
+    for(size_t i=0;i<col;i++){
+        tmp[i]=body[idx][i];
     }
-    return out;
-}*/
+    return *tmp;
+}
 template<typename T>
 const char *table<T>::save(std::ostream &out){
     const char *out1(NULL);
@@ -102,9 +73,9 @@ const char *table<T>::save(std::ostream &out){
 }
 template<typename T>
 const char *table<T>::get_file(std::ifstream& in){
-    const char *out(NULL);
-    size_t num(0);
-    int _row(0),_col(0);
+    const char *out=NULL;
+    size_t num=0;
+    int _row=0,_col=0;
     destroy();
     if(!in.is_open())out="Error open file";
     else{

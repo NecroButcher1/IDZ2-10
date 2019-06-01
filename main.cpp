@@ -1,4 +1,4 @@
-#include "redact.cpp"
+#include "redact.h"
 #include "exceptions.h"
 #include "sort.h"
 #include <iostream>
@@ -79,27 +79,26 @@ int main()
                 null(check,check_fill);
             }
             if(check_fill==3){
-
+                out=NULL;
+                system("cls");
+                cout<<"press file name >>";
+                char *filename;
+                cin>>filename;
+                strcat(filename,".txt");
+                ifstream fin;
+                fin.open(filename);
+                current.destroy();
+                out=current.get_file(fin);
+                if(out)exceptions fail(out);
+                else cout<<"excellent fill"<<endl;
+                null(check,check_fill);
             }
         }
         if(check==2){
             system("cls");
-           /* if(current.empty())exceptions fail("empty table");
-            else{
-                out=NULL;
-                for(size_t i=0;((i<current.get_row())&&(!out));i++){
-                    for(size_t j=0;(j<current.get_col()&&(!out));j++){
-                        out=current.get(i,j,buff_value);
-                        cout.width(6);
-                        if(out)exceptions fail("incorrect data");
-                        else cout<<buff_value<<" ";
-                    }
-                    cout<<endl;
-                }
-                cout<<endl;
-            }*/
+            out=NULL;
             out=redact(current);
-            if(!out)exceptions fail(out);
+            if(out)exceptions fail(out);
             null(check,check_fill);
         }
         if(check==3){
@@ -107,9 +106,7 @@ int main()
             out=NULL;
             out=sort(current);
             if(out)exceptions fail(out);
-            else{
-                cout<<"sort table"<<endl;
-            }
+            else cout<<"sort table"<<endl;
             null(check,check_fill);
         }
     }
