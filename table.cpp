@@ -53,7 +53,7 @@ const T* table<T>::operator[](size_t idx){
     for(size_t i=0;i<col;i++){
         tmp[i]=body[idx][i];
     }
-    return *tmp;
+    return tmp;
 }
 template<typename T>
 const char *table<T>::save(std::ostream &out){
