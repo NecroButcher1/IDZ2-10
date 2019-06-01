@@ -11,11 +11,10 @@ private:
     T **body;
 public:
     table():row(0),col(0),body(NULL){};
-    explicit table(table<T> &copy):row(copy.row),col(copy.col){
-        for(size_t i=0;i<row;i++){
-            for(size_t j=0;j<col;j++)body[i][j]=copy.body[i][j];
-        }
+    explicit table(table<T> *copy):row(copy.row),col(copy.col){
+        this=copy;
     }
+    table operator=(table<T> in){return in;}
     const T* operator[](size_t);
     const char* save(std::ostream&);
     const char* get_file(std::ifstream&);
