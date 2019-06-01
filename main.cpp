@@ -1,15 +1,17 @@
-#include "table.h"
-#include "table.cpp"
+#include "redact.cpp"
 #include "exceptions.h"
+#include "sort.h"
 #include <iostream>
 #include <cstdlib>
-using namespace std;
+#include <ctime>
+//using namespace std;
 void menu();
 void menu_fill();
 void size(int&,int&);
 void null(int&,int&);
 int main()
 {
+    srand(time(NULL));
     table<int> current;
     const char *out;
     int buff_value,row(0),col(0),check(0),check_fill(0);
@@ -76,10 +78,13 @@ int main()
                 }
                 null(check,check_fill);
             }
+            if(check_fill==3){
+
+            }
         }
         if(check==2){
             system("cls");
-            if(current.empty())exceptions fail("empty table");
+           /* if(current.empty())exceptions fail("empty table");
             else{
                 out=NULL;
                 for(size_t i=0;((i<current.get_row())&&(!out));i++){
@@ -92,7 +97,9 @@ int main()
                     cout<<endl;
                 }
                 cout<<endl;
-            }
+            }*/
+            out=redact(current);
+            if(!out)exceptions fail(out);
             null(check,check_fill);
         }
         if(check==3){
@@ -130,6 +137,6 @@ void size(int &_row,int &_col){
 }
 void null(int &t1,int &t2){t1=0;t2=0;}
 void menu(){
-    cout<<"==============="<<endl<<"1.Fill table"<<endl<<"2.see table"<<endl<<"3.Sort"<<endl<<"4.exit"<<endl<<">>";
+    cout<<"==============="<<endl<<"1.Fill table"<<endl<<"2.see and redact table"<<endl<<"3.Sort"<<endl<<"4.exit"<<endl<<">>";
 }
 void menu_fill(){cout<<"1.fill from keyboard"<<endl<<"2.fill random"<<endl<<"3.from file"<<endl<<">>";}
